@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Asteroids.Data;
+﻿using Asteroids.Data;
 using Asteroids.Data.Aspects;
-using Asteroids.Data.Common;
+using Asteroids.ECS.Asteroids.ECS;
 using Asteroids.Runtime;
-using Unity.Mathematics;
 using UnityEngine;
 using Transform = Asteroids.Data.Transform;
 
@@ -13,24 +10,28 @@ namespace Asteroids.Proxy
     public class GameProxy
     {
         private readonly GameWorld _world;
+        private double _elapsed;
+        private readonly ExportStreamingData _exportSystem;
+        private readonly ImportInputData _importSystem;
 
         public GameProxy()
         {
             _world = new GameWorld();
+            _world.Systems.AddSystem<PlayerControllerSystem>();
+            _world.Systems.AddSystem<MovableSystem>();
+            _world.Systems.AddSystem<BulletSystem>();
+            _world.Systems.AddSystem<EnemyManagementSystem>();
             _exportSystem = _world.Systems.AddSystem<ExportStreamingData>();
+            _importSystem = _world.Systems.AddSystem<ImportInputData>();
         }
 
         public void Spawn()
         {
-            var test = new Entity(_world);
-            test.AddComp<Transform>();
-            test.AddComp<Exportable>();
+            Prefabs.Player(_world);
         }
 
-        private double _elapsed;
-        private readonly ExportStreamingData _exportSystem;
-
-        public ExportData Data { get; private set; }
+        public ImportData Import { get; set; }
+        public ExportData Export { get; private set; }
 
         public void Update()
         {
@@ -41,28 +42,10 @@ namespace Asteroids.Proxy
 
             // Simulate data transfer
             var json = JsonUtility.ToJson(_exportSystem.ExportData);
-            Data = JsonUtility.FromJson<ExportData>(json);
+            Export = JsonUtility.FromJson<ExportData>(json);
+
+            var inputJson = JsonUtility.ToJson(Import);
+            _importSystem.ImportData = JsonUtility.FromJson<UserInput>(inputJson);
         }
-    }
-
-    [Serializable]
-    public class ExportData
-    {
-        public uint structuralVersion;
-        public List<Archetype> data;
-    }
-
-    [Serializable]
-    public struct Archetype
-    {
-        public GraphicsDef def;
-        public List<TransformData> transforms;
-    }
-
-    [Serializable]
-    public struct TransformData
-    {
-        public float2 position;
-        public float angle;
     }
 }

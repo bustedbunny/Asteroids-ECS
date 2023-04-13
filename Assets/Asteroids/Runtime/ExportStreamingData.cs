@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Asteroids.Data;
 using Asteroids.Data.Aspects;
-using Asteroids.Runtime.Common;
+using Asteroids.ECS.Asteroids.ECS;
 
 namespace Asteroids.Runtime
 {
@@ -12,7 +12,7 @@ namespace Asteroids.Runtime
 
         protected override void OnCreate()
         {
-            _query = World.QueryStore.GetStore<Exportable>();
+            _query = World.QueryStore.GetQuery<Exportable>();
             ExportData = new()
             {
                 data = new(3)

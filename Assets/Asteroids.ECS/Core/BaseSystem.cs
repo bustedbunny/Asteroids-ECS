@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Asteroids.Runtime.Common
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public abstract class BaseSystem
     {
@@ -8,6 +9,14 @@ namespace Asteroids.Runtime.Common
         {
             World = world;
             OnCreate();
+        }
+
+        private List<ComponentQuery> _queriesForUpdate;
+
+        protected void RequireForUpdate<T>() where T : Comp<T>
+        {
+            _queriesForUpdate ??= new();
+            _queriesForUpdate.Add(World.QueryStore.GetQuery<T>());
         }
 
         protected WorldTime Time => World.Time;
@@ -21,6 +30,17 @@ namespace Asteroids.Runtime.Common
 
         public void Update()
         {
+            if (_queriesForUpdate is not null)
+            {
+                foreach (var query in _queriesForUpdate)
+                {
+                    if (query.IsEmpty)
+                    {
+                        return;
+                    }
+                }
+            }
+
             Version = World.Version;
             try
             {

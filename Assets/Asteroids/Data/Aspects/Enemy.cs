@@ -2,9 +2,8 @@
 
 namespace Asteroids.Data.Aspects
 {
-    public class Exportable : Comp<Exportable>
+    public class Enemy : Comp<Enemy>
     {
-        public GraphicsDef Def { get; set; }
         public Transform Transform { get; private set; }
 
         protected override void OnCreate()

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Asteroids.Data.Common;
 
-namespace Asteroids
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public class QueryStore
     {
@@ -14,7 +13,7 @@ namespace Asteroids
 
         private readonly List<ComponentQuery> _stores = new();
 
-        public ComponentQuery<T> GetStore<T>() where T : Comp
+        public ComponentQuery<T> GetQuery<T>() where T : Comp
         {
             foreach (var store in _stores)
             {

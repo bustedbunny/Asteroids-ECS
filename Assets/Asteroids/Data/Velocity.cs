@@ -1,11 +1,10 @@
-﻿using Asteroids.Data.Common;
-using Unity.Mathematics;
+﻿using Asteroids.ECS.Asteroids.ECS;
 
 namespace Asteroids.Data
 {
     public class Velocity : Comp<Velocity>
     {
-        public float2 linear;
+        public float forwardLinear;
         public float angular;
     }
 }

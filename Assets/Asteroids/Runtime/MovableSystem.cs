@@ -1,5 +1,6 @@
 ﻿using Asteroids.Data.Aspects;
-using Asteroids.Runtime.Common;
+using Asteroids.ECS.Asteroids.ECS;
+using Unity.Mathematics;
 
 namespace Asteroids.Runtime
 {
@@ -9,7 +10,7 @@ namespace Asteroids.Runtime
 
         protected override void OnCreate()
         {
-            _query = World.QueryStore.GetStore<Movable>();
+            _query = World.QueryStore.GetQuery<Movable>();
         }
 
         protected override void OnUpdate()
@@ -17,8 +18,17 @@ namespace Asteroids.Runtime
             var delta = Time.delta;
             foreach (var movable in _query)
             {
-                movable.Transform.position += movable.Velocity.linear * delta;
-                movable.Transform.angle += movable.Velocity.angular * delta;
+                var rotation = quaternion.Euler(0f, movable.Transform.angle, 0f);
+                var forward = math.forward(rotation);
+                forward = math.normalize(forward);
+
+
+                var velocity = movable.Velocity;
+
+                movable.Transform.position += 5f * forward.xz * velocity.forwardLinear * delta;
+                movable.Transform.angle += velocity.angular * 200f * delta;
+
+                velocity.angular = 0f;
             }
         }
     }

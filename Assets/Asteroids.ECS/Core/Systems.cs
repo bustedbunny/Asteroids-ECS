@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Asteroids.Runtime.Common;
 
-namespace Asteroids
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public class Systems : IEnumerable<BaseSystem>
     {

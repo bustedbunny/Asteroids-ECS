@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Asteroids.Data.Common;
 
-namespace Asteroids
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public class ComponentQuery<T> : ComponentQuery, IEnumerable<T> where T : Comp
     {
         internal override Type Type => typeof(T);
+        public override bool IsEmpty => _store.Count == 0;
+        public int Count => _store.Count;
 
         private readonly List<Comp<T>> _store = new();
         private double _version;
@@ -25,6 +26,8 @@ namespace Asteroids
         }
 
         public bool DidChange(double version) => _version > version;
+
+        public T GetSingleton() => _store[0] as T;
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -50,5 +53,7 @@ namespace Asteroids
         }
 
         internal abstract Type Type { get; }
+
+        public abstract bool IsEmpty { get; }
     }
 }

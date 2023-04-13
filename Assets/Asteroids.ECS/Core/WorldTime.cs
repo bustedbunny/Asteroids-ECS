@@ -1,4 +1,4 @@
-﻿namespace Asteroids
+﻿namespace Asteroids.ECS.Asteroids.ECS
 {
     public readonly struct WorldTime
     {

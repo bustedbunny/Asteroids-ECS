@@ -2,8 +2,13 @@
 
 namespace Asteroids.Data.Aspects
 {
-    public class Movable : Comp<Movable>
+    public class Bullet : Comp<Bullet>
     {
+        /// <summary>
+        /// Time until bullet disappears
+        /// </summary>
+        public float timeLeft = 3f;
+
         public Transform Transform { get; private set; }
         public Velocity Velocity { get; private set; }
 
@@ -11,13 +16,6 @@ namespace Asteroids.Data.Aspects
         {
             Transform = Parent.TryAddComp<Transform>();
             Velocity = Parent.TryAddComp<Velocity>();
-        }
-
-        public virtual void OnUpdate()
-        {
-            var delta = Time.delta;
-            Transform.position += Velocity.forwardLinear * delta;
-            Transform.angle += Velocity.angular * delta;
         }
     }
 }

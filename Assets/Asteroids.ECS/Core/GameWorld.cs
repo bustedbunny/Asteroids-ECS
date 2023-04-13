@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Asteroids
+﻿namespace Asteroids.ECS.Asteroids.ECS
 {
     public class GameWorld
     {
@@ -27,5 +25,9 @@ namespace Asteroids
                 system.Update();
             }
         }
+
+        public Entity CreateEntity() => new(this);
+
+        public void DestroyEntity(Entity entity) => entity.Destroy();
     }
 }

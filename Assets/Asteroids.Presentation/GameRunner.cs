@@ -6,14 +6,19 @@ namespace Asteroids.Presentation
 {
     public class GameRunner : MonoBehaviour
     {
+        [SerializeField] private GraphicsDrawer _drawer;
+
         private GameProxy _proxy;
 
 
-        [SerializeField] private Mesh _cube;
-        [SerializeField] private Material _material;
+        private InputActions _inputActions;
 
         private void Awake()
         {
+            _inputActions = new InputActions();
+            _inputActions.Enable();
+
+
             _proxy = new GameProxy();
             _proxy.Update();
             _proxy.Spawn();
@@ -22,19 +27,24 @@ namespace Asteroids.Presentation
         private void FixedUpdate()
         {
             _proxy.Update();
+
+            _proxy.Import = default;
         }
 
         private void Update()
         {
-            foreach (var data in _proxy.Data.data)
-            {
-                foreach (var tf in data.transforms)
-                {
-                    var pos = new Vector3(tf.position.x, 0f, tf.position.y);
-                    var matrix = Matrix4x4.TRS(pos, Quaternion.Euler(0f, tf.angle, 0f), Vector3.one);
-                    Graphics.DrawMesh(_cube, matrix, _material, 0);
-                }
-            }
+            _drawer.Draw(_proxy.Export.data);
+            ManageInput();
+        }
+
+        private void ManageInput()
+        {
+            var input = _proxy.Import;
+            input.movement = _inputActions.Game.Movement.ReadValue<Vector2>();
+
+            // Since values are read only in FixedUpdate, we need to be sure press makes it to server until reset
+            input.shoot |= _inputActions.Game.Shoot.WasPressedThisFrame();
+            _proxy.Import = input;
         }
     }
 }

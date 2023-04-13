@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Asteroids.Data.Common
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public sealed class Entity
     {
         private List<Comp> _comps = new();
 
-        public Entity(GameWorld world)
+        internal Entity(GameWorld world)
         {
             World = world;
         }
 
-        public T AddComp<T>() where T : Comp, new()
+        internal void Destroy()
         {
-            #if DEBUG
+            foreach (var comp in _comps)
+            {
+                comp.Destroy();
+            }
+        }
+
+        public T TryAddComp<T>() where T : Comp, new()
+        {
             foreach (var comp in _comps)
             {
                 if (comp is T target)
                 {
-                    throw new InvalidOperationException($"Comp of type {nameof(T)} already exists on Entity");
+                    return target;
                 }
             }
 
-            #endif
+            return AddComp<T>();
+        }
 
+        public T AddComp<T>() where T : Comp, new()
+        {
             var newComp = new T();
             _comps.Add(newComp);
             newComp.Init(this);

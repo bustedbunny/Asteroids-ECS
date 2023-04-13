@@ -3,5 +3,7 @@
     public enum GraphicsDef
     {
         Asteroid = 50,
+        Player = 100,
+        PlayerBullet = 105,
     }
 }
