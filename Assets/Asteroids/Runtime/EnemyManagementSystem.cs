@@ -12,6 +12,7 @@ namespace Asteroids.Runtime
         protected override void OnCreate()
         {
             _enemyQuery = World.QueryStore.GetQuery<Enemy>();
+            RequireForUpdate<Player>();
         }
 
         private Random _random;
@@ -45,6 +46,8 @@ namespace Asteroids.Runtime
             {
                 World.DestroyEntity(entity);
             }
+
+            _entitiesToDestroy.Clear();
 
             // Spawn new enemies
             if (_enemyQuery.Count >= MaxEnemies)

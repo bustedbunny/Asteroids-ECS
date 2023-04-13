@@ -11,6 +11,11 @@ namespace Asteroids.Presentation
 
         public void Draw(List<ExportData.Archetype> data)
         {
+            if (data is null)
+            {
+                return;
+            }
+
             foreach (var archetype in data)
             {
                 foreach (var tf in archetype.transforms)

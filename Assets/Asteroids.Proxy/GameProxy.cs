@@ -16,10 +16,11 @@ namespace Asteroids.Proxy
 
         public GameProxy()
         {
-            _world = new GameWorld();
+            _world = new();
             _world.Systems.AddSystem<PlayerControllerSystem>();
             _world.Systems.AddSystem<MovableSystem>();
             _world.Systems.AddSystem<BulletSystem>();
+            _world.Systems.AddSystem<EnemyCollisionSystem>();
             _world.Systems.AddSystem<EnemyManagementSystem>();
             _exportSystem = _world.Systems.AddSystem<ExportStreamingData>();
             _importSystem = _world.Systems.AddSystem<ImportInputData>();

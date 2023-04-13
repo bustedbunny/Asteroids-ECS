@@ -6,8 +6,10 @@ using Unity.Mathematics;
 namespace Asteroids.Proxy
 {
     [Serializable]
-    public class ExportData
+    public struct ExportData
     {
+        public bool gameOver;
+        public HudData hudData;
         public uint structuralVersion;
         public List<Archetype> data;
 
@@ -23,6 +25,14 @@ namespace Asteroids.Proxy
                 public float2 position;
                 public float angle;
             }
+        }
+
+        [Serializable]
+        public struct HudData
+        {
+            public float2 coordinates;
+            public float rotation;
+            public float velocity;
         }
     }
 }

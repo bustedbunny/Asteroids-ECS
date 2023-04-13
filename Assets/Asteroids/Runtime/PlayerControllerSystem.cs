@@ -32,7 +32,7 @@ namespace Asteroids.Runtime
                 player.Transform.position.x += -posSigns.x * Constants.XBounds * 2f;
             }
 
-            if (curPos.y >= Constants.XBounds)
+            if (curPos.y >= Constants.YBounds)
             {
                 player.Transform.position.y += -posSigns.y * Constants.YBounds * 2f;
             }

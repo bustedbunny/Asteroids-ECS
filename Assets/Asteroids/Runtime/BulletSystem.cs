@@ -17,7 +17,7 @@ namespace Asteroids.Runtime
             _enemyQuery = World.QueryStore.GetQuery<Enemy>();
         }
 
-        private readonly List<Bullet> _bulletsToDestroy = new(1);
+        private readonly List<Entity> _entitiesToDestroy = new(1);
 
         protected override void OnUpdate()
         {
@@ -27,7 +27,7 @@ namespace Asteroids.Runtime
                 bullet.timeLeft -= delta;
                 if (bullet.timeLeft <= 0f)
                 {
-                    _bulletsToDestroy.Add(bullet);
+                    _entitiesToDestroy.Add(bullet.Parent);
                     continue;
                 }
 
@@ -37,16 +37,19 @@ namespace Asteroids.Runtime
                     var enemyPos = enemy.Transform.position;
                     if (math.distance(bulletPos, enemyPos) <= 1f)
                     {
-                        _bulletsToDestroy.Add(bullet);
+                        _entitiesToDestroy.Add(bullet.Parent);
+                        _entitiesToDestroy.Add(enemy.Parent);
                         break;
                     }
                 }
             }
 
-            foreach (var bullet in _bulletsToDestroy)
+            foreach (var entity in _entitiesToDestroy)
             {
-                World.DestroyEntity(bullet.Parent);
+                World.DestroyEntity(entity);
             }
+
+            _entitiesToDestroy.Clear();
         }
     }
 }

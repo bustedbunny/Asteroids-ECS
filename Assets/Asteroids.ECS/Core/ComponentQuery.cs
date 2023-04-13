@@ -25,7 +25,7 @@ namespace Asteroids.ECS.Asteroids.ECS
             _version = World.Version;
         }
 
-        public bool DidChange(double version) => _version > version;
+        public bool OrderChanged(double version) => _version > version;
 
         public T GetSingleton() => _store[0] as T;
 

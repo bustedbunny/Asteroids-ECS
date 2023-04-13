@@ -1,4 +1,6 @@
-﻿namespace Asteroids.ECS.Asteroids.ECS
+﻿using System.Collections.Generic;
+
+namespace Asteroids.ECS.Asteroids.ECS
 {
     public class GameWorld
     {
@@ -26,8 +28,29 @@
             }
         }
 
-        public Entity CreateEntity() => new(this);
+        private List<Entity> _entities = new();
 
-        public void DestroyEntity(Entity entity) => entity.Destroy();
+        public Entity CreateEntity()
+        {
+            var entity = new Entity(this);
+            _entities.Add(entity);
+            return entity;
+        }
+
+        public void DestroyEntity(Entity entity)
+        {
+            _entities.Remove(entity);
+            entity.Destroy();
+        }
+
+        public void DestroyAllEntities()
+        {
+            foreach (var entity in _entities)
+            {
+                entity.Destroy();
+            }
+
+            _entities.Clear();
+        }
     }
 }

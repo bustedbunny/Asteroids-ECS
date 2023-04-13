@@ -1,4 +1,6 @@
 ﻿using System;
+using Asteroids.Presentation.UI;
+using Asteroids.Presentation.UI.HUD;
 using Asteroids.Proxy;
 using UnityEngine;
 
@@ -7,33 +9,51 @@ namespace Asteroids.Presentation
     public class GameRunner : MonoBehaviour
     {
         [SerializeField] private GraphicsDrawer _drawer;
+        [SerializeField] private GameOverView _gameOverUi;
+        [SerializeField] private HudView _hud;
 
         private GameProxy _proxy;
-
-
         private InputActions _inputActions;
 
         private void Awake()
         {
-            _inputActions = new InputActions();
+            _inputActions = new();
             _inputActions.Enable();
+            _proxy = new();
+        }
 
-
-            _proxy = new GameProxy();
-            _proxy.Update();
+        private void OnEnable()
+        {
             _proxy.Spawn();
+            _hud.gameObject.SetActive(true);
+        }
+
+        private void OnDisable()
+        {
+            _hud.gameObject.SetActive(false);
         }
 
         private void FixedUpdate()
         {
             _proxy.Update();
-
             _proxy.Import = default;
+
+            if (_proxy.Export.gameOver)
+            {
+                gameObject.SetActive(false);
+                _gameOverUi.gameObject.SetActive(true);
+                return;
+            }
+
+            var hudData = _proxy.Export.hudData;
+            _hud.UpdateValues(hudData.coordinates, hudData.rotation, hudData.velocity);
         }
 
         private void Update()
         {
             _drawer.Draw(_proxy.Export.data);
+
+
             ManageInput();
         }
 
