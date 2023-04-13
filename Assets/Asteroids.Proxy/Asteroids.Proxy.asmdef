@@ -1,7 +1,8 @@
 {
-    "name": "Asteroids",
+    "name": "Asteroids.Proxy",
     "rootNamespace": "",
     "references": [
+        "GUID:94f7be45a50e5674080bf0184aeaf50c",
         "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
@@ -12,5 +13,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": true
+    "noEngineReferences": false
 }
