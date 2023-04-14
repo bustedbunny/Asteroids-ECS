@@ -39,8 +39,7 @@ namespace Asteroids.Presentation
                 return;
             }
 
-            var hudData = _proxy.Export.hudData;
-            _hud.UpdateValues(hudData.coordinates, hudData.rotation, hudData.velocity);
+            _hud.UpdateValues(_proxy.Export.hudData);
         }
 
         private void Update()

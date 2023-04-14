@@ -30,7 +30,7 @@ namespace Asteroids
             var result = entity.AddComp<Movable>();
             var enemy = entity.AddComp<Enemy>();
             enemy.collisionRadius = 1f;
-          
+            enemy.scorePoints = 2;
             enemy.actionOnDeath = () =>
             {
                 const float rotationOffset = math.PI * 2f / 3f;
@@ -55,6 +55,7 @@ namespace Asteroids
             exportable.Def = GraphicsDef.AsteroidChunk;
             var result = entity.AddComp<Movable>();
             var enemy = entity.AddComp<Enemy>();
+            enemy.scorePoints = 1;
             enemy.collisionRadius = 0.5f;
             entity.AddComp<Asteroid>();
             return result;
@@ -80,6 +81,7 @@ namespace Asteroids
             exportable.Def = GraphicsDef.Ufo;
             entity.AddComp<Movable>();
             var enemy = entity.AddComp<Enemy>();
+            enemy.scorePoints = 3;
             enemy.collisionRadius = 1f;
             return entity.AddComp<Ufo>();
         }

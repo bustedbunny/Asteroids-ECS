@@ -29,6 +29,7 @@ namespace Asteroids.Proxy
         [Serializable]
         public struct HudData
         {
+            public int score;
             public float2 coordinates;
             public float rotation;
             public float velocity;

@@ -42,6 +42,7 @@ namespace Asteroids.Runtime
                 var player = _playerQuery.GetSingleton();
                 ExportData.hudData = new()
                 {
+                    score = player.totalScore,
                     coordinates = player.Transform.position,
                     rotation = player.Transform.angle,
                     velocity = player.Velocity.forwardLinear
@@ -99,6 +100,7 @@ namespace Asteroids.Runtime
         [Serializable]
         public struct HudData
         {
+            public int score;
             public float2 coordinates;
             public float rotation;
             public float velocity;
