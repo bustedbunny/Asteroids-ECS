@@ -4,15 +4,16 @@ using Unity.Mathematics;
 
 namespace Asteroids.Data
 {
-    public class UserInputSingleton : Comp<UserInputSingleton>
+    public class UserInput : Comp<UserInput>
     {
-        public UserInput value;
+        public Input value;
     }
 
     [Serializable]
-    public struct UserInput
+    public struct Input
     {
         public float2 movement;
         public bool shoot;
+        public bool laserShoot;
     }
 }

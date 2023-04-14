@@ -5,16 +5,16 @@ using Unity.Mathematics;
 
 namespace Asteroids.Runtime
 {
-    public class BulletSystem : BaseSystem
+    public class ProjectileSystem : BaseSystem
     {
-        private ComponentQuery<Bullet> _bulletQuery;
+        private ComponentQuery<Projectile> _projectileQuery;
         private ComponentQuery<Enemy> _enemyQuery;
         private ComponentQuery<Player> _playerQuery;
 
         protected override void OnCreate()
         {
-            _bulletQuery = World.QueryStore.GetQuery<Bullet>();
-            RequireForUpdate<Bullet>();
+            _projectileQuery = World.QueryStore.GetQuery<Projectile>();
+            RequireForUpdate<Projectile>();
             _enemyQuery = World.QueryStore.GetQuery<Enemy>();
 
             _playerQuery = World.QueryStore.GetQuery<Player>();
@@ -28,7 +28,7 @@ namespace Asteroids.Runtime
         protected override void OnUpdate()
         {
             var delta = Time.delta;
-            foreach (var bullet in _bulletQuery)
+            foreach (var bullet in _projectileQuery)
             {
                 bullet.timeLeft -= delta;
                 if (bullet.timeLeft <= 0f)
@@ -43,10 +43,13 @@ namespace Asteroids.Runtime
                     var enemyPos = enemy.Transform.position;
                     if (math.distance(bulletPos, enemyPos) <= enemy.collisionRadius)
                     {
-                        _entitiesToDestroy.Add(bullet.Parent);
-                        _entitiesToDestroy.Add(enemy.Parent);
                         _enemiesToDestroy.Add(enemy);
-                        break;
+                        _entitiesToDestroy.Add(enemy.Parent);
+                        if (bullet.destroyOnImpact)
+                        {
+                            _entitiesToDestroy.Add(bullet.Parent);
+                            break;
+                        }
                     }
                 }
             }

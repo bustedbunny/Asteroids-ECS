@@ -46,6 +46,15 @@ namespace Asteroids.Presentation
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LaserShoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""209cd9f5-142e-4aef-a3b5-5ff80836ebf1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace Asteroids.Presentation
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e07466b-b195-4a2f-8d44-6a1e67123458"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LaserShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace Asteroids.Presentation
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
             m_Game_Movement = m_Game.FindAction("Movement", throwIfNotFound: true);
             m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
+            m_Game_LaserShoot = m_Game.FindAction("LaserShoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -187,12 +208,14 @@ namespace Asteroids.Presentation
         private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
         private readonly InputAction m_Game_Movement;
         private readonly InputAction m_Game_Shoot;
+        private readonly InputAction m_Game_LaserShoot;
         public struct GameActions
         {
             private @InputActions m_Wrapper;
             public GameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Game_Movement;
             public InputAction @Shoot => m_Wrapper.m_Game_Shoot;
+            public InputAction @LaserShoot => m_Wrapper.m_Game_LaserShoot;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -208,6 +231,9 @@ namespace Asteroids.Presentation
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @LaserShoot.started += instance.OnLaserShoot;
+                @LaserShoot.performed += instance.OnLaserShoot;
+                @LaserShoot.canceled += instance.OnLaserShoot;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -218,6 +244,9 @@ namespace Asteroids.Presentation
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @LaserShoot.started -= instance.OnLaserShoot;
+                @LaserShoot.performed -= instance.OnLaserShoot;
+                @LaserShoot.canceled -= instance.OnLaserShoot;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -239,6 +268,7 @@ namespace Asteroids.Presentation
         {
             void OnMovement(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnLaserShoot(InputAction.CallbackContext context);
         }
     }
 }

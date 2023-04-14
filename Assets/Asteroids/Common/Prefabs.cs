@@ -14,7 +14,7 @@ namespace Asteroids
             entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Player;
-            entity.AddComp<UserInputSingleton>();
+            entity.AddComp<UserInput>();
             entity.AddComp<Movable>();
             entity.AddComp<Player>();
             return entity;
@@ -61,16 +61,19 @@ namespace Asteroids
             return result;
         }
 
-        public static Bullet Bullet(GameWorld world)
+        public static Projectile Projectile(GameWorld world, GraphicsDef def, bool destroyOnImpact)
         {
             var entity = world.CreateEntity();
             entity.AddComp<Transform>();
             entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
-            exportable.Def = GraphicsDef.PlayerBullet;
+            exportable.Def = def;
             entity.AddComp<Movable>();
-            return entity.AddComp<Bullet>();
+            var bullet = entity.AddComp<Projectile>();
+            bullet.destroyOnImpact = destroyOnImpact;
+            return bullet;
         }
+
 
         public static Ufo Ufo(GameWorld world)
         {

@@ -8,13 +8,13 @@ namespace Asteroids.Data.Aspects
 
         protected override void OnCreate()
         {
-            Input = Parent.GetComp<UserInputSingleton>();
+            Input = Parent.GetComp<UserInput>();
             Velocity = Parent.GetComp<Velocity>();
             Transform = Parent.GetComp<Transform>();
         }
 
         public Transform Transform { get; private set; }
         public Velocity Velocity { get; private set; }
-        public UserInputSingleton Input { get; private set; }
+        public UserInput Input { get; private set; }
     }
 }

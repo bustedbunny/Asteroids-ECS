@@ -1,8 +1,9 @@
-﻿using Asteroids.Data.Aspects;
+﻿using Asteroids.Data;
+using Asteroids.Data.Aspects;
 using Asteroids.ECS;
 using Unity.Mathematics;
 
-namespace Asteroids.Runtime
+namespace Asteroids.Runtime.PlayerSystems
 {
     public class PlayerControllerSystem : BaseSystem
     {
@@ -52,10 +53,19 @@ namespace Asteroids.Runtime
             // Bullet
             if (input.shoot)
             {
-                var bullet = Prefabs.Bullet(World);
+                var bullet = Prefabs.Projectile(World, GraphicsDef.PlayerBullet, true);
                 bullet.Transform.position = tf.position;
                 bullet.Transform.angle = tf.angle;
                 bullet.Velocity.forwardLinear = 5f + velocity.forwardLinear;
+            }
+
+            // Laser
+            if (input.laserShoot)
+            {
+                var laser = Prefabs.Projectile(World, GraphicsDef.PlayerLaser, false);
+                laser.Transform.position = tf.position;
+                laser.Transform.angle = tf.angle;
+                laser.Velocity.forwardLinear = 10f + velocity.forwardLinear;
             }
         }
     }

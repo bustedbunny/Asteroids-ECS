@@ -5,12 +5,12 @@ namespace Asteroids.Runtime
 {
     public class ImportInputData : BaseSystem
     {
-        private ComponentQuery<UserInputSingleton> _inputQuery;
+        private ComponentQuery<UserInput> _inputQuery;
 
         protected override void OnCreate()
         {
-            _inputQuery = World.QueryStore.GetQuery<UserInputSingleton>();
-            RequireForUpdate<UserInputSingleton>();
+            _inputQuery = World.QueryStore.GetQuery<UserInput>();
+            RequireForUpdate<UserInput>();
         }
 
         protected override void OnUpdate()
@@ -19,6 +19,6 @@ namespace Asteroids.Runtime
             ImportData = default;
         }
 
-        public UserInput ImportData { get; set; }
+        public Input ImportData { get; set; }
     }
 }

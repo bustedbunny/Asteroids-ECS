@@ -57,6 +57,7 @@ namespace Asteroids.Presentation
 
             // Since values are read only in FixedUpdate, we need to be sure press makes it to server until reset
             input.shoot |= _inputActions.Game.Shoot.WasPressedThisFrame();
+            input.laserShoot |= _inputActions.Game.LaserShoot.WasPressedThisFrame();
             _proxy.Import = input;
         }
     }

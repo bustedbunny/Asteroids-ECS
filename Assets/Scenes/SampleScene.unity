@@ -538,6 +538,9 @@ MonoBehaviour:
   - def: 105
     mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
     material: {fileID: 2100000, guid: beaced165130a364cb5d9091288f88b5, type: 2}
+  - def: 110
+    mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+    material: {fileID: 2100000, guid: d791f282de75cf448a7c29ccfc0d4767, type: 2}
   - def: 200
     mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
     material: {fileID: 2100000, guid: d3a8c1744096eb54e95046d9f51f4d17, type: 2}

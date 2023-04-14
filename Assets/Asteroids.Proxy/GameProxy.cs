@@ -1,7 +1,8 @@
-﻿using Asteroids.Data;
-using Asteroids.ECS;
+﻿using Asteroids.ECS;
 using Asteroids.Runtime;
+using Asteroids.Runtime.PlayerSystems;
 using UnityEngine;
+using Input = Asteroids.Data.Input;
 
 namespace Asteroids.Proxy
 {
@@ -17,7 +18,7 @@ namespace Asteroids.Proxy
             _world = new();
             _world.Systems.AddSystem<PlayerControllerSystem>();
             _world.Systems.AddSystem<MovableSystem>();
-            _world.Systems.AddSystem<BulletSystem>();
+            _world.Systems.AddSystem<ProjectileSystem>();
             _world.Systems.AddSystem<EnemyCollisionSystem>();
             _world.Systems.AddSystem<UfoSpawnSystem>();
             _world.Systems.AddSystem<AsteroidSystem>();
@@ -46,7 +47,7 @@ namespace Asteroids.Proxy
             Export = JsonUtility.FromJson<ExportData>(json);
 
             var inputJson = JsonUtility.ToJson(Import);
-            _importSystem.ImportData = JsonUtility.FromJson<UserInput>(inputJson);
+            _importSystem.ImportData = JsonUtility.FromJson<Input>(inputJson);
         }
     }
 }

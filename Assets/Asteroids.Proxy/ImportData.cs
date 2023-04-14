@@ -8,5 +8,6 @@ namespace Asteroids.Proxy
     {
         public float2 movement;
         public bool shoot;
+        public bool laserShoot;
     }
 }
