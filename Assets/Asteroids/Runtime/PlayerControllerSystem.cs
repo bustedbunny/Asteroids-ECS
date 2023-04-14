@@ -41,7 +41,7 @@ namespace Asteroids.Runtime
             // Input
             var deltaVelocity = input.movement * delta;
             velocity.forwardLinear += deltaVelocity.y;
-            velocity.angular += deltaVelocity.x;
+            velocity.angular += deltaVelocity.x * 200f;
 
             // Inertia
             var falloff = 1f / 7f * delta;

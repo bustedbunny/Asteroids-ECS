@@ -26,7 +26,7 @@ namespace Asteroids.Runtime
                 var velocity = movable.Velocity;
 
                 movable.Transform.position += 5f * forward.xz * velocity.forwardLinear * delta;
-                movable.Transform.angle += velocity.angular * 200f * delta;
+                movable.Transform.angle += velocity.angular * delta;
                 movable.Transform.angle %= math.PI * 2f;
 
                 velocity.angular = 0f;
