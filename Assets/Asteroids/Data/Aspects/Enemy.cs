@@ -8,7 +8,7 @@ namespace Asteroids.Data.Aspects
 
         protected override void OnCreate()
         {
-            Transform = Parent.TryAddComp<Transform>();
+            Transform = Parent.GetComp<Transform>();
         }
     }
 }

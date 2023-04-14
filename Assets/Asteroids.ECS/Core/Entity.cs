@@ -20,19 +20,6 @@ namespace Asteroids.ECS.Asteroids.ECS
             }
         }
 
-        public T TryAddComp<T>() where T : Comp, new()
-        {
-            foreach (var comp in _comps)
-            {
-                if (comp is T target)
-                {
-                    return target;
-                }
-            }
-
-            return AddComp<T>();
-        }
-
         public T AddComp<T>() where T : Comp, new()
         {
             var newComp = new T();

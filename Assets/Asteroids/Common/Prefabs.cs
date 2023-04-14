@@ -9,6 +9,8 @@ namespace Asteroids
         public static Entity Player(GameWorld world)
         {
             var entity = world.CreateEntity();
+            entity.AddComp<Transform>();
+            entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Player;
             entity.AddComp<UserInputSingleton>();
@@ -20,6 +22,8 @@ namespace Asteroids
         public static Movable Asteroid(GameWorld world)
         {
             var entity = world.CreateEntity();
+            entity.AddComp<Transform>();
+            entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Asteroid;
             var result = entity.AddComp<Movable>();
@@ -30,6 +34,8 @@ namespace Asteroids
         public static Bullet Bullet(GameWorld world)
         {
             var entity = world.CreateEntity();
+            entity.AddComp<Transform>();
+            entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.PlayerBullet;
             entity.AddComp<Movable>();

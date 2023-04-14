@@ -14,8 +14,8 @@ namespace Asteroids.Data.Aspects
 
         protected override void OnCreate()
         {
-            Transform = Parent.TryAddComp<Transform>();
-            Velocity = Parent.TryAddComp<Velocity>();
+            Transform = Parent.GetComp<Transform>();
+            Velocity = Parent.GetComp<Velocity>();
         }
     }
 }

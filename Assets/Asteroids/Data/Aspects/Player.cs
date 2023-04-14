@@ -6,9 +6,9 @@ namespace Asteroids.Data.Aspects
     {
         protected override void OnCreate()
         {
-            Input = Parent.TryAddComp<UserInputSingleton>();
-            Velocity = Parent.TryAddComp<Velocity>();
-            Transform = Parent.TryAddComp<Transform>();
+            Input = Parent.GetComp<UserInputSingleton>();
+            Velocity = Parent.GetComp<Velocity>();
+            Transform = Parent.GetComp<Transform>();
         }
 
         public Transform Transform { get; private set; }
