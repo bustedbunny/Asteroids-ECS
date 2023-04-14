@@ -36,7 +36,6 @@ namespace Asteroids.Runtime
                 var sign = math.sign(deltaAngle);
 
                 var rotationVelocity = math.clamp(math.abs(deltaAngle), 0f, ufo.rotationSpeed) * sign;
-                rotationVelocity *= delta;
                 velocity.angular = rotationVelocity;
                 velocity.forwardLinear = ufo.movementSpeed;
             }
