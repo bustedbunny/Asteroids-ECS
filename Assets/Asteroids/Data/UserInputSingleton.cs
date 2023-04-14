@@ -1,5 +1,5 @@
 ﻿using System;
-using Asteroids.ECS.Asteroids.ECS;
+using Asteroids.ECS;
 using Unity.Mathematics;
 
 namespace Asteroids.Data

@@ -1,4 +1,4 @@
-﻿namespace Asteroids.ECS.Asteroids.ECS
+﻿namespace Asteroids.ECS
 {
     public abstract class Comp<T> : Comp where T : Comp
     {

@@ -1,9 +1,7 @@
 ﻿using Asteroids.Data;
-using Asteroids.Data.Aspects;
-using Asteroids.ECS.Asteroids.ECS;
+using Asteroids.ECS;
 using Asteroids.Runtime;
 using UnityEngine;
-using Transform = Asteroids.Data.Transform;
 
 namespace Asteroids.Proxy
 {

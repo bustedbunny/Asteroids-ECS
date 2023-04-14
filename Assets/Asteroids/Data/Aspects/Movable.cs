@@ -1,4 +1,4 @@
-﻿using Asteroids.ECS.Asteroids.ECS;
+﻿using Asteroids.ECS;
 
 namespace Asteroids.Data.Aspects
 {

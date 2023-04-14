@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Asteroids.ECS.Asteroids.ECS
+namespace Asteroids.ECS
 {
     public class QueryStore
     {

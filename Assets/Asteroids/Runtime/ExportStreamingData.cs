@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Asteroids.Data;
 using Asteroids.Data.Aspects;
-using Asteroids.ECS.Asteroids.ECS;
+using Asteroids.ECS;
 using Unity.Mathematics;
 
 namespace Asteroids.Runtime

@@ -1,7 +1,7 @@
 ﻿using Unity.Mathematics;
 using UnityEngine.UIElements;
 
-namespace Asteroids.Presentation.UI.HUD
+namespace Asteroids.Presentation.UI
 {
     public class HudView : BaseView
     {

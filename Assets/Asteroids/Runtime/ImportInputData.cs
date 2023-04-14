@@ -1,5 +1,5 @@
 ﻿using Asteroids.Data;
-using Asteroids.ECS.Asteroids.ECS;
+using Asteroids.ECS;
 
 namespace Asteroids.Runtime
 {

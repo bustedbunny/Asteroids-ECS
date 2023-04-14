@@ -1,6 +1,4 @@
-﻿using System;
-using Asteroids.Presentation.UI;
-using Asteroids.Presentation.UI.HUD;
+﻿using Asteroids.Presentation.UI;
 using Asteroids.Proxy;
 using UnityEngine;
 
