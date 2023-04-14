@@ -49,7 +49,7 @@ namespace Asteroids
             entity.AddComp<Transform>();
             entity.AddComp<Velocity>();
             var exportable = entity.AddComp<Exportable>();
-            exportable.Def = GraphicsDef.Asteroid;
+            exportable.Def = GraphicsDef.Ufo;
             entity.AddComp<Movable>();
             entity.AddComp<Enemy>();
             return entity.AddComp<Ufo>();
