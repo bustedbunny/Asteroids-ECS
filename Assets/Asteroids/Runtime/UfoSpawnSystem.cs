@@ -16,7 +16,7 @@ namespace Asteroids.Runtime
 
         private Random _random;
 
-        private const int MaxUfo = 1;
+        private const int MaxUfo = 2;
 
 
         protected override void OnUpdate()
