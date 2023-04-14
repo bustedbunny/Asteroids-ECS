@@ -39,7 +39,7 @@ namespace Asteroids
                     var chunk = AsteroidChunk(world);
                     chunk.Transform.position = result.Transform.position;
                     chunk.Transform.angle = result.Transform.angle + rotationOffset * i;
-                    chunk.Velocity.forwardLinear = 1f;
+                    chunk.Velocity.forwardLinear = result.Velocity.forwardLinear * 1.5f;
                 }
             };
             entity.AddComp<Asteroid>();
