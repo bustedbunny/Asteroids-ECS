@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Asteroids.Data;
-using Asteroids.Data.Aspects;
+﻿using Asteroids.Data.Aspects;
 using Asteroids.ECS;
-using Unity.Mathematics;
 
-namespace Asteroids.Runtime
+namespace Asteroids.Runtime.DataTransfer
 {
-    public class ExportStreamingData : BaseSystem
+    public class ExportStreamingDataSystem : BaseSystem
     {
         private ComponentQuery<Exportable> _query;
         private ComponentQuery<Player> _playerQuery;
@@ -55,7 +51,6 @@ namespace Asteroids.Runtime
 
         private void BakeExportData()
         {
-            ExportData.structuralVersion = Version;
             ExportData.data.Clear();
             foreach (var exportable in _query)
             {
@@ -79,31 +74,6 @@ namespace Asteroids.Runtime
                 def = exportable.Def,
                 transforms = new() { exportable.Transform }
             });
-        }
-    }
-
-    [Serializable]
-    public class ExportData
-    {
-        public bool gameOver;
-        public HudData hudData;
-        public double structuralVersion;
-        public List<Archetype> data;
-
-        [Serializable]
-        public struct Archetype
-        {
-            public GraphicsDef def;
-            public List<Transform> transforms;
-        }
-
-        [Serializable]
-        public struct HudData
-        {
-            public int score;
-            public float2 coordinates;
-            public float rotation;
-            public float velocity;
         }
     }
 }

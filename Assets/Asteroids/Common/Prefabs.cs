@@ -12,6 +12,11 @@ namespace Asteroids
             var entity = world.CreateEntity();
             entity.AddComp<Transform>();
             entity.AddComp<Velocity>();
+
+            var laser = entity.AddComp<Laser>();
+            laser.maxCharges = 3;
+            laser.rechargeTime = 1.5f;
+
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Player;
             entity.AddComp<UserInput>();

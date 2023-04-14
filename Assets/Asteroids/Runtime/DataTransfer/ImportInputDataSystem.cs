@@ -1,9 +1,9 @@
 ﻿using Asteroids.Data;
 using Asteroids.ECS;
 
-namespace Asteroids.Runtime
+namespace Asteroids.Runtime.DataTransfer
 {
-    public class ImportInputData : BaseSystem
+    public class ImportInputDataSystem : BaseSystem
     {
         private ComponentQuery<UserInput> _inputQuery;
 

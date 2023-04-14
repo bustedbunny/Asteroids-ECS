@@ -1,8 +1,9 @@
 ﻿using Asteroids.ECS;
 using Asteroids.Runtime;
+using Asteroids.Runtime.DataTransfer;
 using Asteroids.Runtime.PlayerSystems;
 using UnityEngine;
-using Input = Asteroids.Data.Input;
+using Input = Asteroids.Runtime.DataTransfer.Input;
 
 namespace Asteroids.Proxy
 {
@@ -10,8 +11,8 @@ namespace Asteroids.Proxy
     {
         private readonly GameWorld _world;
         private double _elapsed;
-        private readonly ExportStreamingData _exportSystem;
-        private readonly ImportInputData _importSystem;
+        private readonly ExportStreamingDataSystem _exportSystem;
+        private readonly ImportInputDataSystem _importSystem;
 
         public GameProxy()
         {
@@ -22,9 +23,10 @@ namespace Asteroids.Proxy
             _world.Systems.AddSystem<EnemyCollisionSystem>();
             _world.Systems.AddSystem<UfoSpawnSystem>();
             _world.Systems.AddSystem<AsteroidSystem>();
+            _world.Systems.AddSystem<LaserSystem>();
             _world.Systems.AddSystem<UfoSystem>();
-            _exportSystem = _world.Systems.AddSystem<ExportStreamingData>();
-            _importSystem = _world.Systems.AddSystem<ImportInputData>();
+            _exportSystem = _world.Systems.AddSystem<ExportStreamingDataSystem>();
+            _importSystem = _world.Systems.AddSystem<ImportInputDataSystem>();
         }
 
         public void Spawn()

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Asteroids.Data;
 using Unity.Mathematics;
 
-namespace Asteroids.Proxy
+namespace Asteroids.Runtime.DataTransfer
 {
     [Serializable]
-    public struct ExportData
+    public class ExportData
     {
         public bool gameOver;
         public HudData hudData;
@@ -14,15 +15,8 @@ namespace Asteroids.Proxy
         [Serializable]
         public struct Archetype
         {
-            public int def;
-            public List<TransformData> transforms;
-
-            [Serializable]
-            public struct TransformData
-            {
-                public float2 position;
-                public float angle;
-            }
+            public GraphicsDef def;
+            public List<Transform> transforms;
         }
 
         [Serializable]
