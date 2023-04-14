@@ -4,7 +4,7 @@ namespace Asteroids.Data.Aspects
 {
     public class Ufo : Comp<Ufo>
     {
-        public float rotationSpeed = 50f;
+        public float rotationSpeed = 6f;
         public float movementSpeed = 1f;
 
         public Velocity Velocity { get; private set; }
