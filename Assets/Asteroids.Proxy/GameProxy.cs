@@ -34,7 +34,7 @@ namespace Asteroids.Proxy
             Prefabs.Player(_world);
         }
 
-        public ImportData Import { get; set; }
+        public ImportData import;
         public ExportData Export { get; private set; }
 
         public void Update()
@@ -48,7 +48,7 @@ namespace Asteroids.Proxy
             var json = JsonUtility.ToJson(_exportSystem.ExportData);
             Export = JsonUtility.FromJson<ExportData>(json);
 
-            var inputJson = JsonUtility.ToJson(Import);
+            var inputJson = JsonUtility.ToJson(import);
             _importSystem.ImportData = JsonUtility.FromJson<Input>(inputJson);
         }
     }
