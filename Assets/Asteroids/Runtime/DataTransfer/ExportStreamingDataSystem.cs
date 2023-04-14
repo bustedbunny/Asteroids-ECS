@@ -36,12 +36,19 @@ namespace Asteroids.Runtime.DataTransfer
             else
             {
                 var player = _playerQuery.GetSingleton();
+
+                var laser = player.Laser;
+                // Get normalized data about charges: 1f = 1 charge
+                var laserCurrentCharges = (laser.currentCharges * laser.rechargeTime + laser.rechargeState) /
+                                          laser.rechargeTime;
+
                 ExportData.hudData = new()
                 {
                     score = player.totalScore,
                     coordinates = player.Transform.position,
                     rotation = player.Transform.angle,
-                    velocity = player.Velocity.forwardLinear
+                    velocity = player.Velocity.forwardLinear,
+                    laserChargeData = laserCurrentCharges
                 };
                 ExportData.gameOver = false;
             }

@@ -35,6 +35,7 @@ namespace Asteroids.Presentation
             {
                 gameObject.SetActive(false);
                 _gameOverUi.gameObject.SetActive(true);
+                _gameOverUi.SetScore(_proxy.Export.hudData.score);
                 _hud.gameObject.SetActive(false);
                 return;
             }

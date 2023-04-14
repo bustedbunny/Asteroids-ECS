@@ -26,6 +26,8 @@ namespace Asteroids.Runtime.DataTransfer
             public float2 coordinates;
             public float rotation;
             public float velocity;
+
+            public float laserChargeData;
         }
     }
 }

@@ -5,6 +5,10 @@
             <ui:Label name="label-coordinates" />
             <ui:Label name="label-rotation" />
             <ui:Label name="label-velocity" />
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="label-laser" />
+                <ui:ProgressBar name="progress-laser" high-value="1" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
