@@ -18,6 +18,7 @@ namespace Asteroids.Runtime
         }
 
         private readonly List<Entity> _entitiesToDestroy = new(1);
+        private readonly List<Enemy> _enemiesToDestroy = new(1);
 
         protected override void OnUpdate()
         {
@@ -35,13 +36,20 @@ namespace Asteroids.Runtime
                 {
                     var bulletPos = bullet.Transform.position;
                     var enemyPos = enemy.Transform.position;
-                    if (math.distance(bulletPos, enemyPos) <= 1f)
+                    if (math.distance(bulletPos, enemyPos) <= enemy.collisionRadius)
                     {
                         _entitiesToDestroy.Add(bullet.Parent);
                         _entitiesToDestroy.Add(enemy.Parent);
+                        _enemiesToDestroy.Add(enemy);
                         break;
                     }
                 }
+            }
+
+            // This must be done outside of query because asteroid spawns chunks (which modifies query)
+            foreach (var enemy in _enemiesToDestroy)
+            {
+                enemy.actionOnDeath?.Invoke();
             }
 
             foreach (var entity in _entitiesToDestroy)
@@ -49,6 +57,7 @@ namespace Asteroids.Runtime
                 World.DestroyEntity(entity);
             }
 
+            _enemiesToDestroy.Clear();
             _entitiesToDestroy.Clear();
         }
     }

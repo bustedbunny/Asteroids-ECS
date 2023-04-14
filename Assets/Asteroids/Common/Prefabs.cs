@@ -1,6 +1,7 @@
 ﻿using Asteroids.Data;
 using Asteroids.Data.Aspects;
 using Asteroids.ECS;
+using Unity.Mathematics;
 
 namespace Asteroids
 {
@@ -27,7 +28,34 @@ namespace Asteroids
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Asteroid;
             var result = entity.AddComp<Movable>();
-            entity.AddComp<Enemy>();
+            var enemy = entity.AddComp<Enemy>();
+            enemy.collisionRadius = 1f;
+          
+            enemy.actionOnDeath = () =>
+            {
+                const float rotationOffset = math.PI * 2f / 3f;
+                for (int i = 0; i < 3; i++)
+                {
+                    var chunk = AsteroidChunk(world);
+                    chunk.Transform.position = result.Transform.position;
+                    chunk.Transform.angle = result.Transform.angle + rotationOffset * i;
+                    chunk.Velocity.forwardLinear = 1f;
+                }
+            };
+            entity.AddComp<Asteroid>();
+            return result;
+        }
+
+        public static Movable AsteroidChunk(GameWorld world)
+        {
+            var entity = world.CreateEntity();
+            entity.AddComp<Transform>();
+            entity.AddComp<Velocity>();
+            var exportable = entity.AddComp<Exportable>();
+            exportable.Def = GraphicsDef.AsteroidChunk;
+            var result = entity.AddComp<Movable>();
+            var enemy = entity.AddComp<Enemy>();
+            enemy.collisionRadius = 0.5f;
             entity.AddComp<Asteroid>();
             return result;
         }
@@ -51,7 +79,8 @@ namespace Asteroids
             var exportable = entity.AddComp<Exportable>();
             exportable.Def = GraphicsDef.Ufo;
             entity.AddComp<Movable>();
-            entity.AddComp<Enemy>();
+            var enemy = entity.AddComp<Enemy>();
+            enemy.collisionRadius = 1f;
             return entity.AddComp<Ufo>();
         }
     }

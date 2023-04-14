@@ -4,6 +4,8 @@ namespace Asteroids.Data.Aspects
 {
     public class Player : Comp<Player>
     {
+        public int totalScore;
+
         protected override void OnCreate()
         {
             Input = Parent.GetComp<UserInputSingleton>();

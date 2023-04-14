@@ -17,7 +17,7 @@ namespace Asteroids.Runtime
             _random = new((uint)GetHashCode());
         }
 
-        private const int MaxAsteroids = 10;
+        private const int MaxAsteroids = 7;
 
         // Magic value explanation
         // Spawn distance = 16+1 squared = 289
