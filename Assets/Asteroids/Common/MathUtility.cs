@@ -6,10 +6,9 @@ namespace Asteroids
     // Just some math utilities copied from Unity engine
     public static class MathUtility
     {
-        public static float SignedAngle(float2 from, float2 to)
-        {
-            return Angle(from, to) * math.sign((float)(from.x * (double)to.y - from.y * (double)to.x));
-        }
+        public static float SignedAngle(float2 from, float2 to) => Angle(from, to) *
+                                                                   math.sign((float)(from.x * (double)to.y -
+                                                                       from.y * (double)to.x));
 
         public static float Angle(float2 from, float2 to)
         {

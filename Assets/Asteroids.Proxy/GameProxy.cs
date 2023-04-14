@@ -21,7 +21,9 @@ namespace Asteroids.Proxy
             _world.Systems.AddSystem<MovableSystem>();
             _world.Systems.AddSystem<BulletSystem>();
             _world.Systems.AddSystem<EnemyCollisionSystem>();
-            _world.Systems.AddSystem<EnemyManagementSystem>();
+            _world.Systems.AddSystem<UfoSpawnSystem>();
+            _world.Systems.AddSystem<AsteroidSystem>();
+            _world.Systems.AddSystem<UfoSystem>();
             _exportSystem = _world.Systems.AddSystem<ExportStreamingData>();
             _importSystem = _world.Systems.AddSystem<ImportInputData>();
         }

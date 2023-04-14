@@ -28,11 +28,6 @@ namespace Asteroids.Presentation
             _hud.gameObject.SetActive(true);
         }
 
-        private void OnDisable()
-        {
-            _hud.gameObject.SetActive(false);
-        }
-
         private void FixedUpdate()
         {
             _proxy.Update();
@@ -42,6 +37,7 @@ namespace Asteroids.Presentation
             {
                 gameObject.SetActive(false);
                 _gameOverUi.gameObject.SetActive(true);
+                _hud.gameObject.SetActive(false);
                 return;
             }
 

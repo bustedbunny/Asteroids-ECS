@@ -5,35 +5,34 @@ using Unity.Mathematics;
 
 namespace Asteroids.Runtime
 {
-    public class EnemyManagementSystem : BaseSystem
+    public class AsteroidSystem : BaseSystem
     {
-        private ComponentQuery<Enemy> _enemyQuery;
+        private ComponentQuery<Asteroid> _query;
 
         protected override void OnCreate()
         {
-            _enemyQuery = World.QueryStore.GetQuery<Enemy>();
+            _query = World.QueryStore.GetQuery<Asteroid>();
             RequireForUpdate<Player>();
+
+            _random = new((uint)GetHashCode());
         }
 
-        private Random _random;
-
-        private const int MaxEnemies = 10;
-
-        private readonly List<Entity> _entitiesToDestroy = new(1);
-
+        private const int MaxAsteroids = 10;
 
         // Magic value explanation
         // Spawn distance = 16+1 squared = 289
         // Destroy check will be 16*16+100 = 356
         // This is to ensure enemies are not destroyed on spawn
-        private const float SpawnOffset = 1f;
         private const float DestroyPosOffset = 100f;
+
+        private readonly List<Entity> _entitiesToDestroy = new(1);
+        private Random _random;
 
 
         protected override void OnUpdate()
         {
             // Destroy asteroids if they are too far
-            foreach (var enemy in _enemyQuery)
+            foreach (var enemy in _query)
             {
                 var distanceToCenterSq = math.distancesq(0f, enemy.Transform.position);
                 if (distanceToCenterSq > Constants.XBounds * Constants.XBounds + DestroyPosOffset)
@@ -49,25 +48,17 @@ namespace Asteroids.Runtime
 
             _entitiesToDestroy.Clear();
 
-            // Spawn new enemies
-            if (_enemyQuery.Count >= MaxEnemies)
+            if (_query.Count > MaxAsteroids)
             {
                 return;
             }
 
-            _random = new((uint)Version);
 
-            var enemyType = _random.NextInt(2);
-
-            // Angle of imaginary circle to determines random spawn position
-            var angle = _random.NextFloat(math.PI * 2f);
-
-            const float radius = Constants.XBounds + SpawnOffset;
-            math.sincos(angle, out var sin, out var cos);
-
-            var pos = new float2(cos, sin) * radius;
+            var pos = SpawnUtility.GetSpawnPos(_random.NextFloat(math.PI * 2f));
             var randomLookPosition = _random.NextFloat2(MinBounds, MaxBounds);
-            var rotationAngle = MathUtility.SignedAngle(pos, randomLookPosition);
+            var lookDirection = pos - randomLookPosition;
+            lookDirection = math.normalize(lookDirection);
+            var rotationAngle = MathUtility.SignedAngle(math.up().xy, lookDirection);
 
 
             var asteroid = Prefabs.Asteroid(World);
@@ -76,6 +67,7 @@ namespace Asteroids.Runtime
             asteroid.Velocity.forwardLinear = 1f;
         }
 
+        // Simulation space bounds
         private static readonly float2 MinBounds = new float2(Constants.XBounds, Constants.YBounds) * -0.5f;
         private static readonly float2 MaxBounds = new float2(Constants.XBounds, Constants.YBounds) * 0.5f;
     }

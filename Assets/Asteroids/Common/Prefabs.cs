@@ -28,6 +28,7 @@ namespace Asteroids
             exportable.Def = GraphicsDef.Asteroid;
             var result = entity.AddComp<Movable>();
             entity.AddComp<Enemy>();
+            entity.AddComp<Asteroid>();
             return result;
         }
 
@@ -40,6 +41,18 @@ namespace Asteroids
             exportable.Def = GraphicsDef.PlayerBullet;
             entity.AddComp<Movable>();
             return entity.AddComp<Bullet>();
+        }
+
+        public static Ufo Ufo(GameWorld world)
+        {
+            var entity = world.CreateEntity();
+            entity.AddComp<Transform>();
+            entity.AddComp<Velocity>();
+            var exportable = entity.AddComp<Exportable>();
+            exportable.Def = GraphicsDef.Asteroid;
+            entity.AddComp<Movable>();
+            entity.AddComp<Enemy>();
+            return entity.AddComp<Ufo>();
         }
     }
 }
