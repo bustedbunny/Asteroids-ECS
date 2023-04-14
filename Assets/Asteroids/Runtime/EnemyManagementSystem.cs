@@ -67,8 +67,7 @@ namespace Asteroids.Runtime
 
             var pos = new float2(cos, sin) * radius;
             var randomLookPosition = _random.NextFloat2(MinBounds, MaxBounds);
-            var rotationAngle = MathUtility.SignedAngle(new(pos.x, 0f, pos.y),
-                new(randomLookPosition.x, 0f, randomLookPosition.y), math.up());
+            var rotationAngle = MathUtility.SignedAngle(pos, randomLookPosition);
 
 
             var asteroid = Prefabs.Asteroid(World);
